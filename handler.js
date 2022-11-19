@@ -38,7 +38,7 @@ const responseHandler = (request, response) => {
         else {
             const requestBodyLength = request.header['content-length'];
             const bufferResponse = Buffer.from(data).toString('base64');
-            response.write(`200 ERROR\r\nServer: http-scratch\r\nContent-Length: ${requestBodyLength || 0}\r\nContent-Type:text/plain\r\n\r\n${bufferResponse}`);
+            response.write(`200 OK\r\nServer: http-scratch\r\nContent-Length: ${requestBodyLength}\r\nContent-Type:text/plain\r\n\r\n${bufferResponse}`);
             response.end();
         }
         
