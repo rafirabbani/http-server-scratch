@@ -45,6 +45,8 @@ const responseHandler = (request, response) => {
     }
     catch (err) {
         console.log('errord response', err);
+        response.write('HTTP/1.1 ');
+        errorHandler(500, response);
     }
 };
 
