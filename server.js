@@ -1,28 +1,33 @@
 const net = require('net');
-const server = net.createServer();
 const handler = require('./handler');
+const server = net.createServer();
 
 
 const handleConnection = (socket) => {
-    try {
-        socket.on('data', (data) => {
-            handler.requestHandler(data, socket);
-        });
-        
-        server.close(() => {
-            console.log('server close gracefully')
-        });
-    }
-    catch (err) {
-        console.log('error handle connection', err);
-        server.close();
-    }
+    socket.on('data', (data) => {
+        handler.requestHandler(data, socket);
+    });
+    
+
+    socket.on('error', (err) => {
+        console.log(err);
+    })
+
+    server.close(() => {
+        console.log('server close gracefully')
+    });
     
 };
 
 server.on('connection', (socket) => {
-    console.log('client connected');
-    handleConnection(socket);
+    try {
+        console.log('client connected');
+        handleConnection(socket);
+    }
+    catch {
+        console.log(err)
+    }
+    
 });
 
 
